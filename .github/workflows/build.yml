@@ -1,0 +1,42 @@
+name: Build SongWave APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Install Expo CLI and Dependencies
+        run: |
+          npm install -g eas-cli
+          npm install
+
+      - name: Generate Android Native Project
+        run: npx expo prebuild --platform android
+
+      - name: Build Android APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SongWave-v1.0.0
+          path: android/app/build/outputs/apk/release/*.apk
+          
