@@ -1,0 +1,16 @@
+{
+  "app_name": "SongWave",
+  "app_version": "1.0.0",
+  "developer": {
+    "name": "SongWave Team",
+    "telegram_channel": "https://t.me/SongsProject"
+  },
+  "lastfm": {
+    "api_key": "1e8bacbab751d48fafa7fb873f951fd2",
+    "shared_secret": "777d7a8da9f3ef177de591f9ebf7191b"
+  },
+  "streaming": {
+    "provider": "piped-api",
+    "default_instance": "https://pipedapi.kavin.rocks"
+  }
+}
