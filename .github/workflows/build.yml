@@ -1,4 +1,4 @@
-name: Build SongWave APK
+ name: Build SongWave APK
 
 on:
   workflow_dispatch:
@@ -24,21 +24,21 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install
+          npm install --legacy-peer-deps
 
-      - name: Prebuild Android
+      - name: Prebuild Native Android
         run: |
-          npx expo prebuild --platform android --no-install
+          npx expo prebuild --platform android --clean --no-install
 
       - name: Build Android APK
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SongWave-APK
-          path: android/app/build/outputs/apk/release/*.apk
+          name: SongWave-App
+          path: android/app/build/outputs/apk/debug/*.apk
           
